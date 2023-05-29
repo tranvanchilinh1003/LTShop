@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="chung">
+
+
+  <form action="" id="form">
+
+    <a href="index.html"><i class="fa-solid fa-circle-chevron-left" style="color: #fff; font-size: 30px;"></i></a>    <h2 class="h1" >Login</h2>
+    <div class="grop">
+      <i class="fa-regular fa-user"></i> <input id="userName" type="text" class="ip"  placeholder="Username">
+      <small style="color: red;"></small>
+
+    </div>
+    <div class="grop">
+
+
+
+      <i class="fa-solid fa-key"></i> <input id="Pass" class="ip" type="password"  placeholder="PassWord">
+      <small style="color: red;"></small>
+
+    </div>
+
+    <button class="bt" type="submit">Đăng Nhập</button>
+
+
+
+  </form>
+</div>
+<script >
+  var userName = document.querySelector('#userName');
+  var Pass=document.querySelector('#Pass');
+  function showError(input, message){
+    let parent = input.parentElement;
+    let small = parent.querySelector('small')
+    parent.classList.add('error')
+    small.innerText = message
+  }
+
+
+  // chữ sai nhỏ
+  function showSuccess(input){
+    let parent = input.parentElement;
+    let small = parent.querySelector('small');
+    parent.classList.remove('error')
+    small.innerText = ''
+  }
+  function checkEmptyError(listInput){
+    let isEmptyError= false;
+    listInput.forEach(input => {
+      input.value = input.value.trim()
+
+
+      if(!input.value){
+        isEmptyError = true;
+        showError(input, 'Không Được Bỏ Trống')
+      }else{
+        showSuccess(input)
+      }
+    });
+    return isEmptyError
+  }
+
+
+
+  // độ dày tên
+  function checkNameError(input, min, max){
+    input.value = input.value.trim();
+
+    if(input.value.length < min){
+
+      showError(input, `Phải có ít nhất ${min} ký tự`)
+      return true;
+    }
+    if(input.value.length > max){
+      showError(input,`Không vượt quá ${max} Ký tự`);
+      return true;
+    }
+    return false
+  }
+  form.addEventListener('submit',function(e){
+    e.preventDefault()
+
+    let isEmptyError = checkEmptyError([userName,Pass]);
+
+
+    let isUserNameLengthError = checkNameError(userName,3,20);
+    let isPasswordLengthError = checkNameError(Pass, 3, 20);
+
+
+
+  })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
